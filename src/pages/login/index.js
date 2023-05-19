@@ -1,33 +1,21 @@
 import React from "react";
-import { PrismaClient } from "@prisma/client";
-
-// export async function getStaticProps(context) {
-//   const prisma = new PrismaClient();
-
-//   async function main() {
-//     const users = await prisma.user.findMany();
-//     console.log(users);
-//   }
-
-//   main()
-//     .then(async () => {
-//       await prisma.$disconnect();
-//     })
-//     .catch(async (e) => {
-//       console.error(e);
-//       await prisma.$disconnect();
-//       process.exit(1);
-//     });
-
-//   // const res = await fetch("Link lấy API"); //lúc này nó sẽ lấy data từ link API này
-//   // const data = await res.json();           //chuyển data sang json
-
-//   // return {
-//   //   props: {coders: data}, // gán vào 1 mảng coders để dùng
-//   // };
-// }
+// import { PrismaClient } from "@prisma/client";
+// import { useState, useEffect } from "react";
 
 export default function LoginSite() {
+  // const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch("/api/db");
+  //     const jsonData = await response.json();
+
+  //     setData(jsonData);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <>
       {/*
@@ -119,6 +107,18 @@ export default function LoginSite() {
               Start a 14 day free trial
             </a>
           </p>
+
+          {/* <div>
+            <h1>Menu</h1>
+            <ul>
+              {data.map((item) => (
+                <li key={item.id}>
+                  {item.name} và password của database là {item.email} và
+                  password là {item.pasword}{" "}
+                </li>
+              ))}
+            </ul>
+          </div> */}
         </div>
       </div>
     </>

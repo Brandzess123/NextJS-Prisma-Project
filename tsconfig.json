@@ -18,9 +18,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "$/*": ["utils/*"],
-      "db": ["lib/prisma"]
+      "db": ["src/pages/lib/prisma"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/api/C"],
   "exclude": ["node_modules"]
 }
