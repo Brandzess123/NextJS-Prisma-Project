@@ -16,13 +16,24 @@ export default async function handler(req, res) {
   } else if (req.method === "POST") {
     // Lấy thông tin người dùng từ request body
     const { username, email, password } = req.body;
+
     const resultData = {
       data1: username + "\n" + email + "\n" + password,
     };
+    res.status(200).json(resultData);
+
+    const user = await prisma.user.create({
+      data: {
+        id: 19,
+        email: username,
+        name: email,
+        password: password,
+      },
+    });
 
     // Tạo người dùng mới trong cơ sở dữ liệu
 
-    res.status(201).json(newUser);
+    // res.status(201).json(user);
   } else if (req.method === "PUT") {
     // Lấy ID người dùng từ query parameters
     const { id } = req.query;
@@ -36,7 +47,8 @@ export default async function handler(req, res) {
     res.status(200).json(updatedUser);
   } else if (req.method === "DELETE") {
     // Lấy ID người dùng từ query parameters
-    const { id } = req.query;
+    const { mail } = req.body;
+    res.status(200).json(mail.email);
     // Xoá người dùng khỏi cơ sở dữ liệu
     await prisma.user.delete({
       where: { id: parseInt(id) },

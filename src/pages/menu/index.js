@@ -35,10 +35,37 @@ export default function Menu() {
     fetchData();
   }, []);
 
+  // const handleDelete = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     console.log("hàm chạy");
+  //     //const dataResult = { username: user, email: mail, password: pass };
+  //     const dataDelete = { email: mail };
+  //     const response = await fetch("/api/getinfo", {
+  //       method: "DELETE",
+  //       body: JSON.stringify(dataDelete),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log("Kết quả từ API:", data.data1);
+  //     } else {
+  //       console.error("Lỗi khi gửi yêu cầu:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Lỗi khi gửi yêu cầu:", error);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      //console.log("hàm chạy");
       const dataResult = { username: user, email: mail, password: pass };
       const response = await fetch("/api/getinfo", {
         method: "POST",
@@ -160,7 +187,13 @@ export default function Menu() {
               update
             </button>
 
-            <button className="text-center bg-yellow-300 border">delete</button>
+            {/* <button
+              className="text-center bg-yellow-300 border"
+              type="submit"
+              onClick={handleDelete}
+            >
+              delete
+            </button> */}
           </form>
         </div>
       </div>
