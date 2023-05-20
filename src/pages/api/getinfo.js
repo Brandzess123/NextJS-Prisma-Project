@@ -7,14 +7,21 @@ export default async function handler(req, res) {
 
   if (req.method === "GET") {
     const data = await prisma.user.findMany();
-    res.status(200).json(data);
+    const combinedate = {
+      data1: data,
+      data2: "đây là result trả về",
+    };
+    res.status(200).json(combinedate);
+    // res.status(200).json("đây là result trả về");
   } else if (req.method === "POST") {
     // Lấy thông tin người dùng từ request body
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
+    const resultData = {
+      data1: username + "\n" + email + "\n" + password,
+    };
+
     // Tạo người dùng mới trong cơ sở dữ liệu
-    const newUser = await prisma.user.create({
-      data: { name, email, password },
-    });
+
     res.status(201).json(newUser);
   } else if (req.method === "PUT") {
     // Lấy ID người dùng từ query parameters
