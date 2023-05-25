@@ -1,6 +1,7 @@
 import React from "react";
 import { PrismaClient } from "@prisma/client";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 // export async function getServerSideProps() {
 //   // Gọi API hoặc lấy dữ liệu từ server
@@ -22,6 +23,8 @@ export default function Menu() {
   const [mail, setEmail] = useState("");
   const [pass, setPassword] = useState("");
   const [user, setUserName] = useState("");
+  const [idc, setidc] = useState("");
+  //const [bts, setbutton] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,6 +64,49 @@ export default function Menu() {
   //   }
   // };
 
+  // const handleDelete = async (e) => {
+  //   // console.log("chạy");
+  //   e.preventDefault();
+
+  //   try {
+  //     const Result2 = { id: idc, name: "hieu" }; //lấy dữ liệu từ dataResult
+
+  //     const response = await fetch("/api/getinfo", {
+  //       method: "DELETE",
+  //       body: JSON.stringify(Result2),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log("Kết quả từ API:", data); //nó sẽ return kết quả
+  //     } else {
+  //       console.error("Lỗi khi gửi yêu cầu:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Lỗi khi gửi yêu cầu:", error);
+  //   }
+  //   //tạo 1 state button mỗi khi click thì nó sẽ thay đổi => kéo theo useeffect thay đổi
+  // };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.delete("/api/getinfo", {
+        params: { id: idc },
+      });
+      // const response = await axios.delete(`/api/data?id=${idc}`, {});
+      // Thay thế '/api/data' bằng URL API thực tế của bạn và thêm query parameter ?id=${id}
+      console.log("Kết quả xoá:", response.data);
+      // Xử lý kết quả xoá thành công ở đây
+    } catch (error) {
+      console.error("Lỗi khi xoá dữ liệu:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -78,12 +124,14 @@ export default function Menu() {
       if (response.ok) {
         const data = await response.json();
         console.log("Kết quả từ API:", data.data1);
+        //setbutton(!bts);
       } else {
         console.error("Lỗi khi gửi yêu cầu:", response.status);
       }
     } catch (error) {
       console.error("Lỗi khi gửi yêu cầu:", error);
     }
+    //tạo 1 state button mỗi khi click thì nó sẽ thay đổi => kéo theo useeffect thay đổi
   };
 
   // async function postData() {
@@ -146,8 +194,20 @@ export default function Menu() {
               ))}
             </tbody>
           </table>
+          {/* onSubmit={handleSubmit} */}
+          <form>
+            <input
+              id="id2"
+              name="id2"
+              // type="id"
+              //tách dữ liệu
+              value={idc}
+              onChange={(e) => setidc(e.target.value)}
+              required
+              className="block w-[30%] mt-5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              placeholder=" id"
+            />
 
-          <form onSubmit={handleSubmit}>
             <input
               id="email"
               name="email"
@@ -179,12 +239,25 @@ export default function Menu() {
               //tách dữ liệu
               value={user}
               onChange={(e) => setUserName(e.target.value)}
+              placeholder="username"
               required
               className="block w-[30%] rounded-md mt-11 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
 
-            <button className="text-center bg-red-500 border" type="submit">
+            <button
+              className="text-center bg-red-500 border"
+              type="submit"
+              onClick={handleSubmit}
+            >
               update
+            </button>
+
+            <button
+              className="ml-5 text-center bg-red-500 border rounded-sm"
+              type="submit"
+              onClick={handleDelete}
+            >
+              Delete
             </button>
 
             {/* <button
