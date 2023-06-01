@@ -22,25 +22,6 @@ export default async function handler(req, res) {
     const resultData = {
       data1: username + "\n" + email + "\n" + password,
     };
-    // res.status(200).json(resultData);
-    // const user = await prisma.$queryRaw`INSERT INTO user (name, email, password) VALUES ('${username}', '${email}', '${password}';`
-    // );
-    //const user = await prisma.$queryRaw`INSERT INTO public.user (name, email, password) VALUES ('${username}', '${email}', '${password}'`;
-
-    //     const user = await prisma.$queryRaw(`
-    //   INSERT INTO public.user (name, email, password)
-    //   VALUES (${username}, ${email}, ${password});
-    // `);
-    // const user =
-    //   await prisma.$queryRaw`INSERT INTO public."user"(name, email, password) VALUES (${username}, ${email}, ${password});`;
-    // const user = await prisma.user.createMany({
-    //   data: {
-
-    //     email: email,
-    //     name: username,
-    //     password: password,
-    //   },
-    // });
 
     const user = await prisma.user.create({
       data: {
@@ -68,13 +49,11 @@ export default async function handler(req, res) {
   } else if (req.method === "DELETE") {
     const { id } = req.query;
     //res.status(200).json("giá trị cuối cùng là " + id + " và tên tôi là ");
-    // Xoá người dùng khỏi cơ sở dữ liệu
     await prisma.user.delete({
       where: { id: parseInt(id) },
     });
     res.status(204).end();
   } else {
-    // Phương thức HTTP không được hỗ trợ
     res.status(405).end();
   }
 }

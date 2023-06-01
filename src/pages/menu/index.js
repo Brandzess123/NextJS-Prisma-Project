@@ -2,6 +2,14 @@ import React from "react";
 import { PrismaClient } from "@prisma/client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+// import { useSession, getServerSession } from "next-auth/react";
+import { getServerSession, useSession } from "next-auth";
+import { AuthOptions } from "next-auth";
+import { authOptions } from "src/pages/api/auth/[...nextauth]";
+// import { useSession, signIn, signOut } from "next-auth/react";
+//kiểm tra xem ai đó sign in vào chưa
 
 // export async function getServerSideProps() {
 //   // Gọi API hoặc lấy dữ liệu từ server
@@ -17,6 +25,25 @@ import axios from "axios";
 //   };
 // }
 
+export async function getServerSideProps(context) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
+
 export default function Menu() {
   const [data, setData] = useState([]);
 
@@ -24,72 +51,23 @@ export default function Menu() {
   const [pass, setPassword] = useState("");
   const [user, setUserName] = useState("");
   const [idc, setidc] = useState("");
-  //const [bts, setbutton] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
+
+  //đoạn code này nên cho vào hàm use effect
+  const { data: session, loading } = useSession();
+  // console.log(data + loading);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("/api/getinfo"); //fetch dữ liệu từ api cho trước
-      const jsonData = await response.json(); //lưu result vào prop jsonData
-
-      setData(jsonData.data1); //set giá trị vào state
-      console.log(jsonData.data2);
-    };
-
     fetchData();
   }, []);
 
-  // const handleDelete = async (e) => {
-  //   e.preventDefault();
+  const fetchData = async () => {
+    const response = await fetch("/api/getinfo"); //fetch dữ liệu từ api cho trước
+    const jsonData = await response.json(); //lưu result vào prop jsonData
 
-  //   try {
-  //     console.log("hàm chạy");
-  //     //const dataResult = { username: user, email: mail, password: pass };
-  //     const dataDelete = { email: mail };
-  //     const response = await fetch("/api/getinfo", {
-  //       method: "DELETE",
-  //       body: JSON.stringify(dataDelete),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("Kết quả từ API:", data.data1);
-  //     } else {
-  //       console.error("Lỗi khi gửi yêu cầu:", response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error("Lỗi khi gửi yêu cầu:", error);
-  //   }
-  // };
-
-  // const handleDelete = async (e) => {
-  //   // console.log("chạy");
-  //   e.preventDefault();
-
-  //   try {
-  //     const Result2 = { id: idc, name: "hieu" }; //lấy dữ liệu từ dataResult
-
-  //     const response = await fetch("/api/getinfo", {
-  //       method: "DELETE",
-  //       body: JSON.stringify(Result2),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("Kết quả từ API:", data); //nó sẽ return kết quả
-  //     } else {
-  //       console.error("Lỗi khi gửi yêu cầu:", response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error("Lỗi khi gửi yêu cầu:", error);
-  //   }
-  //   //tạo 1 state button mỗi khi click thì nó sẽ thay đổi => kéo theo useeffect thay đổi
-  // };
+    setData(jsonData.data1); //set giá trị vào state
+    console.log(jsonData.data2);
+  };
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -98,18 +76,16 @@ export default function Menu() {
       const response = await axios.delete("/api/getinfo", {
         params: { id: idc },
       });
-      // const response = await axios.delete(`/api/data?id=${idc}`, {});
-      // Thay thế '/api/data' bằng URL API thực tế của bạn và thêm query parameter ?id=${id}
       console.log("Kết quả xoá:", response.data);
-      // Xử lý kết quả xoá thành công ở đây
     } catch (error) {
       console.error("Lỗi khi xoá dữ liệu:", error);
     }
+    //fetch();
+    fetchData();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       //console.log("hàm chạy");
       const dataResult = { username: user, email: mail, password: pass };
@@ -131,40 +107,17 @@ export default function Menu() {
     } catch (error) {
       console.error("Lỗi khi gửi yêu cầu:", error);
     }
+    fetchData();
     //tạo 1 state button mỗi khi click thì nó sẽ thay đổi => kéo theo useeffect thay đổi
   };
 
-  // async function postData() {
-  //   //xử lý post
-  //   // Dữ liệu cần gửi lên server
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-  //   // Gửi request POST với dữ liệu và chờ đợi response
-
-  //   //tạo 1 object và truyền 3 giá trị vào object data
-
-  //   // const prisma = new PrismaClient();
-  //   // const user = await prisma.user.create({
-  //   //   data: {
-  //   //     username: username1,
-  //   //     email: email1,
-  //   //     password: password1,
-  //   //   },
-  //   // });
-
-  //   const dataResult = { username: user, emai: mail, password: pass };
-
-  //   const response = await fetch("/api/db", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(dataResult),
-  //   });
-  //   // Chuyển đổi response thành dữ liệu JSON và chờ đợi kết quả
-  //   const result = await response.json();
-  //   // In ra kết quả từ server
-  //   console.log(result);
-  // }
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <>
@@ -179,6 +132,7 @@ export default function Menu() {
                 <th className="border">Name</th>
                 <th className="border">Email</th>
                 <th className="border">Password</th>
+                <th className="border">Edit</th>
                 {/* <th className="border">update</th>
                 <th className="border">delete</th> */}
               </tr>
@@ -190,6 +144,16 @@ export default function Menu() {
                   <td className="text-center border">{item.name}</td>
                   <td className="text-center border">{item.email}</td>
                   <td className="text-center border">{item.password}</td>
+                  <td className="text-center border">
+                    {" "}
+                    <button
+                      className="ml-5 text-center bg-red-500 border rounded-sm"
+                      type="submit"
+                      onClick={openModal}
+                    >
+                      Update
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -249,7 +213,7 @@ export default function Menu() {
               type="submit"
               onClick={handleSubmit}
             >
-              update
+              Insert
             </button>
 
             <button
@@ -259,6 +223,103 @@ export default function Menu() {
             >
               Delete
             </button>
+
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 ">
+                  <div className="flex items-center justify-center min-h-full p-4 text-center">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                        <Dialog.Title
+                          as="h3"
+                          className="text-lg font-medium leading-6 text-center text-gray-900"
+                        >
+                          testing
+                        </Dialog.Title>
+                        <div className="flex flex-col items-center justify-center mt-2 ">
+                          <input
+                            id="id2"
+                            name="id2"
+                            // type="id"
+                            //tách dữ liệu
+                            value={idc}
+                            onChange={(e) => setidc(e.target.value)}
+                            required
+                            className="block w-[80%] mt-5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            placeholder=" id"
+                          />
+
+                          <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            //tách dữ liệu
+                            value={mail}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="block w-[80%] mt-5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            placeholder="email"
+                          />
+                          <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            //tách dữ liệu
+                            value={pass}
+                            onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="current-password"
+                            required
+                            className="block w-[80%] mt-5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            placeholder="password"
+                          />
+                          <input
+                            id="username"
+                            name="username"
+                            type="username"
+                            autoComplete="username"
+                            //tách dữ liệu
+                            value={user}
+                            onChange={(e) => setUserName(e.target.value)}
+                            placeholder="username"
+                            required
+                            className="block w-[80%] rounded-md mt-11 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                        </div>
+
+                        <div className="flex items-center justify-center mt-4">
+                          <button
+                            type="button"
+                            className="justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          >
+                            Sign up
+                          </button>
+                        </div>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
+              </Dialog>
+            </Transition>
 
             {/* <button
               className="text-center bg-yellow-300 border"

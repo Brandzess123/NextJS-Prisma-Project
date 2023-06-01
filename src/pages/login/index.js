@@ -1,31 +1,72 @@
 import React from "react";
-// import { PrismaClient } from "@prisma/client";
-// import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function LoginSite() {
-  // const [data, setData] = useState([]);
+  const [pass, setPassword] = useState("");
+  const [mail, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+  // const [session, loading] = useSession();
+  const { data: session, loading } = useSession();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch("/api/db");
-  //     const jsonData = await response.json();
+  const handleSignOut = () => {
+    signOut();
+  };
 
-  //     setData(jsonData);
-  //   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     //console.log("hàm chạy");
 
-  //   fetchData();
-  // }, []);
+  //     const dataResult = { email: mail, password: pass };
+
+  //     const status = await signIn("credentials", {
+  //       redirect: false,
+  //       email: mail,
+  //       password: pass,
+  //       callbackUrl: "/login",
+  //     });
+
+  //     if (status.ok) router.push("/menu");
+  //   } catch (error) {
+  //     console.error("Vui Lòng nhập đúng thông tin", error);
+  //   }
+  //   //tạo 1 state button mỗi khi click thì nó sẽ thay đổi => kéo theo useeffect thay đổi
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      //console.log("hàm chạy");
+      const signInResponse = await signIn("credentials", {
+        redirect: false,
+        email: mail,
+        password: pass,
+      }); //thêm cái này cho nó đỡ redirect
+
+      if (signInResponse.ok) router.push("/menu");
+      // console.log(session.user.email);
+      // console.log(signInResponse);
+      else console.log(signInResponse);
+    } catch (error) {
+      console.error("Vui Lòng nhập đúng thông tin", error);
+    }
+    //tạo 1 state button mỗi khi click thì nó sẽ thay đổi => kéo theo useeffect thay đổi
+  };
 
   return (
     <>
       {/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-white">
-          <body class="h-full">
-          ```
-        */}
+            This example requires updating your template:
+    
+            ```
+            <html class="h-full bg-white">
+            <body class="h-full">
+            ```
+          */}
       <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -53,6 +94,8 @@ export default function LoginSite() {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={mail}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -82,6 +125,8 @@ export default function LoginSite() {
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  value={pass}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -91,10 +136,27 @@ export default function LoginSite() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="mb-5 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={handleSubmit}
               >
                 Sign in
               </button>
+
+              {/* <button
+                  type="submit"
+                  className="mb-5 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  // onClick={}
+                >
+                  Google
+                </button>
+  
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  // onClick={}
+                >
+                  Github
+                </button> */}
             </div>
           </form>
 
@@ -109,16 +171,16 @@ export default function LoginSite() {
           </p>
 
           {/* <div>
-            <h1>Menu</h1>
-            <ul>
-              {data.map((item) => (
-                <li key={item.id}>
-                  {item.name} và password của database là {item.email} và
-                  password là {item.pasword}{" "}
-                </li>
-              ))}
-            </ul>
-          </div> */}
+              <h1>Menu</h1>
+              <ul>
+                {data.map((item) => (
+                  <li key={item.id}>
+                    {item.name} và password của database là {item.email} và
+                    password là {item.pasword}{" "}
+                  </li>
+                ))}
+              </ul>
+            </div> */}
         </div>
       </div>
     </>

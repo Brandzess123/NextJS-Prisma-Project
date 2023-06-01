@@ -1,0 +1,23 @@
+import NextAuth from "next-auth";
+import { providers } from "next-auth";
+
+const options = {
+  providers: [
+    Providers.Credentials({
+      authorize: async (credentials) => {
+        // Kiểm tra thông tin đăng nhập trong cơ sở dữ liệu của bạn
+        const user = await qlsv.authenticate(credentials);
+
+        // Trả về đối tượng người dùng nếu thông tin đăng nhập hợp lệ
+        if (user) {
+          return Promise.resolve(user);
+        }
+
+        // Trả về null nếu thông tin đăng nhập không hợp lệ
+        return Promise.resolve(null);
+      },
+    }),
+  ],
+};
+
+export default (req, res) => NextAuth(req, res, options);
