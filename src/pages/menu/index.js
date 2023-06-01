@@ -1,13 +1,15 @@
 import React from "react";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 // import { useSession, getServerSession } from "next-auth/react";
-import { getServerSession, useSession } from "next-auth";
-import { AuthOptions } from "next-auth";
-import { authOptions } from "src/pages/api/auth/[...nextauth]";
+import { useSession } from "next-auth/react";
+// import { AuthOptions } from "next-auth";
+// import { authOptions } from "src/pages/api/auth/[...nextauth]";
+import Protected from "../protected";
+
 // import { useSession, signIn, signOut } from "next-auth/react";
 //kiểm tra xem ai đó sign in vào chưa
 
@@ -25,24 +27,24 @@ import { authOptions } from "src/pages/api/auth/[...nextauth]";
 //   };
 // }
 
-export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
+// export async function getServerSideProps(context) {
+//   const session = await getServerSession(context.req, context.res, authOptions);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {
-      session,
-    },
-  };
-}
+//   return {
+//     props: {
+//       session,
+//     },
+//   };
+// }
 
 export default function Menu() {
   const [data, setData] = useState([]);
@@ -54,10 +56,23 @@ export default function Menu() {
   let [isOpen, setIsOpen] = useState(false);
 
   //đoạn code này nên cho vào hàm use effect
-  const { data: session, loading } = useSession();
-  // console.log(data + loading);
+  // const { data: session, loading } = useSession();
+
+  //   if (loading) {
+  //     console.log("loading");
+  //   }
+
+  //   if (session) {
+  //     // Phiên session đã được tạo
+  //    console.log(session.username);
+  //   } else {
+  //     // Phiên session chưa được tạo
+  //    console.log("blank");
+  //   }
+  // }
 
   useEffect(() => {
+    // const myComponent = <Protected />;
     fetchData();
   }, []);
 
@@ -121,6 +136,7 @@ export default function Menu() {
 
   return (
     <>
+      <Protected />
       <h1>this is a menu page</h1>
       <div className="flex items-center justify-center h-screen">
         <div className="w-1/2">

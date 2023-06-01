@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut, getSession } from "next-auth/react";
 
 export default function LoginSite() {
   const [pass, setPassword] = useState("");
@@ -10,7 +10,7 @@ export default function LoginSite() {
   const [error, setError] = useState("");
   const router = useRouter();
   // const [session, loading] = useSession();
-  const { data: session, loading } = useSession();
+  // const { data: session, loading } = useSession();
 
   const handleSignOut = () => {
     signOut();
@@ -47,9 +47,12 @@ export default function LoginSite() {
         password: pass,
       }); //thêm cái này cho nó đỡ redirect
 
-      if (signInResponse.ok) router.push("/menu");
+      if (signInResponse.ok) {
+        console.log(signInResponse);
+        router.push("/menu");
+      }
+      // router.push("/protected");
       // console.log(session.user.email);
-      // console.log(signInResponse);
       else console.log(signInResponse);
     } catch (error) {
       console.error("Vui Lòng nhập đúng thông tin", error);
