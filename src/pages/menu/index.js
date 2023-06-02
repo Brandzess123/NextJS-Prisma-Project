@@ -6,9 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 // import { useSession, getServerSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
-// import { AuthOptions } from "next-auth";
 // import { authOptions } from "src/pages/api/auth/[...nextauth]";
-import Protected from "../protected";
 
 // import { useSession, signIn, signOut } from "next-auth/react";
 //kiểm tra xem ai đó sign in vào chưa
@@ -136,8 +134,9 @@ export default function Menu() {
 
   return (
     <>
-      <Protected />
-      <h1>this is a menu page</h1>
+      <h1 className="mt-5 text-lg font-bold text-center">
+        This is a menu page
+      </h1>
       <div className="flex items-center justify-center h-screen">
         <div className="w-1/2">
           <h1 className="mb-4 text-center">Menu</h1>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
+import { sign } from "crypto";
 
 export default function LoginSite() {
   const [pass, setPassword] = useState("");
@@ -12,9 +13,57 @@ export default function LoginSite() {
   // const [session, loading] = useSession();
   // const { data: session, loading } = useSession();
 
+  const handleGoogle = () => {
+    const result = signIn("google", { callbackUrl: "http://localhost:3000" });
+    if (result.error) {
+      // Xử lý lỗi nếu có
+      console.log(result.error);
+    } else {
+      // Đăng nhập thành công, điều hướng đến trang mong muốn
+      router.push("/menu"); // Thay đổi '/dashboard' thành đường dẫn trang mong muốn
+    }
+  };
+
+  const handleGithub = async () => {
+    const result = await signIn("github");
+    if (result.error) {
+      // Xử lý lỗi nếu có
+      console.log(result.error);
+    } else {
+      // Đăng nhập thành công, điều hướng đến trang mong muốn
+      router.push("/menu"); // Thay đổi '/dashboard' thành đường dẫn trang mong muốn
+    }
+  };
+
   const handleSignOut = () => {
     signOut();
   };
+
+  // const validateForm = (email, password) => {
+  //   // Regex pattern for email validation
+  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  //   // Regex pattern for password validation
+  //   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
+
+  //   // Check if email is valid
+  //   if (!emailPattern.test(email)) {
+  //     setErrorMessage("Email is not valid");
+  //     return false;
+  //   }
+
+  //   // Check if password is valid
+  //   if (!passwordPattern.test(password)) {
+  //     setErrorMessage(
+  //       "Password should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one digit"
+  //     );
+  //     return false;
+  //   }
+
+  //   // Form is valid
+  //   setErrorMessage("");
+  //   return true;
+  // };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -39,6 +88,7 @@ export default function LoginSite() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       //console.log("hàm chạy");
       const signInResponse = await signIn("credentials", {
@@ -99,12 +149,13 @@ export default function LoginSite() {
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={mail}
-                  required
+                  // required
+                  // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  // title="Email should be @."
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
             <div>
               <div className="flex items-center justify-between">
                 <label
@@ -130,12 +181,17 @@ export default function LoginSite() {
                   autoComplete="current-password"
                   value={pass}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
+                  // required
+                  // pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/"
+                  // title="Password should be digits (0 to 9) or alphabets (a to z)."
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
+            {/* {validateForm(mail, pass) && (
+              <div>Thông tin đăng nhập hoặc mật khẩu không chính xác!</div>
+            )}{" "} */}
+            {/* Display error message */}
             <div>
               <button
                 type="submit"
@@ -145,21 +201,23 @@ export default function LoginSite() {
                 Sign in
               </button>
 
-              {/* <button
-                  type="submit"
-                  className="mb-5 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  // onClick={}
-                >
-                  Google
-                </button>
-  
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  // onClick={}
-                >
-                  Github
-                </button> */}
+              <button
+                type="submit"
+                onClick={handleGoogle}
+                className="mb-5 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                // onClick={}
+              >
+                Google
+              </button>
+
+              <button
+                type="submit"
+                onClick={handleGithub}
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                // onClick={}
+              >
+                Github
+              </button>
             </div>
           </form>
 

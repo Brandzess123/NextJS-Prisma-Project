@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 const prisma = new PrismaClient({
   //khởi tạo prisma client
@@ -17,6 +18,12 @@ const authOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
+    GoogleProvider({
+      clientId:
+        "87060862126-s599schmj7uiqv7lp6bvqfct1moh3926.apps.googleusercontent.com",
+      clientSecret: "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",
+      //process.env.GOOGLE_CLIENT_ID process.env.GOOGLE_CLIENT_SECRET
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
@@ -49,20 +56,21 @@ const authOptions = {
     }),
   ],
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/login",
     // error: '/auth/error',
     // signOut: '/auth/signout'
   },
-  // callbacks: {
-  //   jwt(params) {
-  //     // update token
-  //     if (params.user?.role) {
-  //       params.token.role = params.user.role;
-  //     }
-  //     // return final_token
-  //     return params.token;
-  //   },
-  // },
+  callbacks: {
+    //hàm này để chuyển hướng sau khi người dùng
+    jwt(params) {
+      // update token
+      if (params.user?.role) {
+        params.token.role = params.user.role;
+      }
+      // return final_token
+      return params.token;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
