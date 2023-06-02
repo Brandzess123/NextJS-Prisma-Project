@@ -4,11 +4,11 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import {
-  ArrowPathIcon,
+  LanguageIcon,
   Bars3Icon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
+  ArrowTrendingUpIcon,
+  WrenchScrewdriverIcon,
+  HandThumbUpIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/20/solid";
@@ -22,32 +22,31 @@ const navigation = [
 ];
 const features = [
   {
-    name: "Push to deploy",
+    name: "High Performance",
     animation: "fade-right",
     description:
-      "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.",
-    icon: CloudArrowUpIcon,
+      "Designed to deliver swift and efficient results, our app utilizes advanced algorithms to automatically generate accurate subtitles for your videos",
+    icon: ArrowTrendingUpIcon,
   },
   {
-    name: "SSL certificates",
+    name: "Easy-to-Use",
     animation: "fade-left",
     description:
-      "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.",
-    icon: LockClosedIcon,
+      "With its intuitive interface and simple controls, generating subtitles for your videos has never been easier.",
+    icon: HandThumbUpIcon,
   },
   {
-    name: "Simple queues",
+    name: "Provide support for multiple languages and dialects",
     animation: "fade-right",
     description:
-      "Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.",
-    icon: ArrowPathIcon,
+      "Create inclusive video experiences with automatic subtitle generation.",
+    icon: LanguageIcon,
   },
   {
-    name: "Advanced security",
+    name: "Customizable ",
     animation: "fade-left",
-    description:
-      "Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.",
-    icon: FingerPrintIcon,
+    description: "Easily personalize and tailor to your preferences.",
+    icon: WrenchScrewdriverIcon,
   },
 ];
 const tiers = [
@@ -102,9 +101,10 @@ const tiers = [
 const faqs = [
   {
     id: 1,
-    question: "What's the best thing about Switzerland?",
+    question:
+      " How many languages are currently supported for Online Speech to Text?",
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      "Chinese, English, Malay, Hindi, Russian, Japanese, Korean, Vietnamese, Thai, Urdu, French, German, Arabian, etc.",
   },
   // More questions...
 ];
@@ -150,7 +150,7 @@ export default function Example() {
     });
   }, []);
   return (
-    <div className="bg-white">
+    <div className="bg-[#f9faff]">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
@@ -188,7 +188,7 @@ export default function Example() {
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden transition-all duration-300 ease-in-out hover:mt-3 lg:flex lg:flex-1 lg:justify-end">
             <a
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
@@ -269,11 +269,11 @@ export default function Example() {
             <div className="px-6 mx-auto max-w-7xl lg:px-8">
               <div className="max-w-2xl mx-auto text-center">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Your online recording studio
+                  Auto Subtitle Generator Online
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Easily record podcasts and videos in studio quality from
-                  anywhere. All from your browser or mobile app.
+                  Generate subtitles automatically to ensure your video is
+                  accessible to all viewers.
                 </p>
                 <div className="flex items-center justify-center mt-10 gap-x-6">
                   <a
@@ -293,6 +293,8 @@ export default function Example() {
               <div className="flow-root mt-16 sm:mt-24">
                 <div className="p-2 -m-2 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <img
+                    data-aos="zoom-in"
+                    data-aos-duration="1200"
                     src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
                     alt="App screenshot"
                     width={2432}
@@ -379,21 +381,20 @@ export default function Example() {
               data-aos="fade-up"
               className="text-base font-semibold leading-7 text-indigo-600"
             >
-              Deploy faster
+              Why us
             </h2>
             <p
               data-aos="fade-up"
               className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             >
-              Everything you need to deploy your app
+              saving you valuable time and effort.
             </p>
             <p
               data-aos="fade-up"
               className="mt-6 text-lg leading-8 text-gray-600"
             >
-              Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
-              Suspendisse eget egestas a elementum pulvinar et feugiat blandit
-              at. In mi viverra elit nunc.
+              Start using our easy-to-use auto subtitle app today and make your
+              videos accessible to a wider audience.
             </p>
           </div>
           <div className="max-w-2xl mx-auto mt-16 sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -425,30 +426,32 @@ export default function Example() {
         {/* Testimonial section */}
         <div className="mx-auto mt-32 max-w-7xl sm:mt-56 sm:px-6 lg:px-8">
           <div className="relative px-6 py-20 overflow-hidden bg-gray-900 shadow-xl sm:rounded-3xl sm:px-10 sm:py-24 md:px-12 lg:px-20">
-            <img
+            {/* <img
               className="absolute inset-0 object-cover w-full h-full brightness-150 saturate-0"
-              src="https://images.unsplash.com/photo-1601381718415-a05fb0a261f3?ixid=MXwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODl8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1216&q=80"
+              src="https://images.unsplash.com/photo-1682687219800-bba120d709c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
               alt=""
-            />
-            <div className="absolute inset-0 bg-gray-900/90 mix-blend-multiply" />
+            /> */}
+            {/* chô này đổi màu */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white to-yellow-200 mix-blend-multiply" />
             <div
               className="absolute -left-80 -top-56 transform-gpu blur-3xl"
               aria-hidden="true"
             >
               <div
-                className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#ff4694] to-[#776fff] opacity-[0.45]"
+                className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#43C6AC] to-[#237A57] opacity-[0.45]"
                 style={{
+                  //#ff4694 #776fff
                   clipPath:
                     "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
                 }}
               />
             </div>
             <div
-              className="hidden md:absolute md:bottom-16 md:left-[50rem] md:block md:transform-gpu md:blur-3xl"
+              className="hidden md:absolute md:bottom-16 md:left-[50rem] md:block md:transform-gpu md:blur-xl"
               aria-hidden="true"
             >
               <div
-                className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#ff4694] to-[#776fff] opacity-25"
+                className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#43C6AC] to-[#237A57] opacity-25"
                 style={{
                   clipPath:
                     "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
@@ -467,16 +470,16 @@ export default function Example() {
               <figure>
                 <blockquote className="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
                   <p>
-                    “Amet amet eget scelerisque tellus sit neque faucibus non
-                    eleifend. Integer eu praesent at a. Ornare arcu gravida
-                    natoque erat et cursus tortor consequat at. Vulputate
-                    gravida sociis enim nullam ultricies habitant malesuada
-                    lorem ac.”
+                    “In my perspective, business goes beyond the attire of suits
+                    or the sole aim of satisfying stockholders. It revolves
+                    around staying aligned with your true self, nurturing your
+                    ideas, and directing your attention towards what is truly
+                    essential..”
                   </p>
                 </blockquote>
                 <figcaption className="mt-6 text-base text-white">
-                  <div className="font-semibold">Judith Black</div>
-                  <div className="mt-1">CEO of Tuple</div>
+                  <div className="font-semibold">Elliot Alderson</div>
+                  <div className="mt-1">CEO of Evette Anita</div>
                 </figcaption>
               </figure>
             </div>
@@ -661,8 +664,9 @@ export default function Example() {
               data-aos="fade-down"
               className="max-w-xl mx-auto mt-6 text-lg leading-8 text-gray-600"
             >
-              Incididunt sint fugiat pariatur cupidatat consectetur sit cillum
-              anim id veniam aliqua proident excepteur commodo do ea.
+              Say goodbye to manual transcription and tedious subtitle creation.
+              Our app automates the process, saving you valuable time and
+              effort.
             </p>
             <div className="flex items-center justify-center mt-10 gap-x-6">
               <a
