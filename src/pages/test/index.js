@@ -3,6 +3,7 @@ import { Dialog } from "@headlessui/react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import Image from "next/image";
 import {
   LanguageIcon,
   Bars3Icon,
@@ -325,36 +326,36 @@ export default function Example() {
             <div className="grid items-center max-w-lg grid-cols-4 mx-auto gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
               <img
                 className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"
-                alt="Transistor"
+                src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/a2b3c3709ffedce2a22a.png"
+                alt="Google"
                 width={158}
                 height={48}
               />
               <img
                 className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"
-                alt="Reform"
+                src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/3cd767dea94a85078ca4.png"
+                alt="Facebook"
                 width={158}
                 height={48}
               />
               <img
                 className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"
-                alt="Tuple"
+                src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/b2bd91d7b87b2181ca45.png"
+                alt="Microsoft"
                 width={158}
                 height={48}
               />
               <img
                 className="object-contain w-full col-span-2 max-h-12 sm:col-start-2 lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"
-                alt="SavvyCal"
+                src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/6591cdc0702b32310306.png"
+                alt="Amazon"
                 width={158}
                 height={48}
               />
               <img
                 className="object-contain w-full col-span-2 col-start-2 max-h-12 sm:col-start-auto lg:col-span-1"
-                src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg"
-                alt="Statamic"
+                src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/7ae42bac3b34999c0db3.png"
+                alt="Two Sigma"
                 width={158}
                 height={48}
               />
