@@ -162,8 +162,11 @@ export default function Example() {
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <Image
-                className="w-auto h-8"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                width={78}
+                height={78}
+                className="w-auto h-8 lg:ml-1"
+                src="/favicon.ico"
+                //https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600
                 alt=""
               />
             </a>
@@ -210,8 +213,9 @@ export default function Example() {
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <Image
+                  layout="fill"
                   className="w-auto h-8"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  src="/GoogleIcon1.png"
                   alt=""
                 />
               </a>
@@ -293,7 +297,7 @@ export default function Example() {
               </div>
               <div className="flow-root mt-16 sm:mt-24">
                 <div className="p-2 -m-2 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                  <img
+                  <Image
                     data-aos="zoom-in"
                     data-aos-duration="1200"
                     src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
@@ -324,35 +328,35 @@ export default function Example() {
         <div className="px-6 mx-auto max-w-7xl lg:px-8">
           <Marquee direction="right" speed={170} delay={0} autoFill={true}>
             <div className="grid items-center max-w-lg grid-cols-4 mx-auto gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-              <img
+              <Image
                 className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
                 src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/a2b3c3709ffedce2a22a.png"
                 alt="Google"
                 width={158}
                 height={48}
               />
-              <img
+              <Image
                 className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
                 src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/3cd767dea94a85078ca4.png"
                 alt="Facebook"
                 width={158}
                 height={48}
               />
-              <img
+              <Image
                 className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
                 src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/b2bd91d7b87b2181ca45.png"
                 alt="Microsoft"
                 width={158}
                 height={48}
               />
-              <img
+              <Image
                 className="object-contain w-full col-span-2 max-h-12 sm:col-start-2 lg:col-span-1"
                 src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/6591cdc0702b32310306.png"
                 alt="Amazon"
                 width={158}
                 height={48}
               />
-              <img
+              <Image
                 className="object-contain w-full col-span-2 col-start-2 max-h-12 sm:col-start-auto lg:col-span-1"
                 src="https://assets.algoexpert.io/spas/main/prod/g21d260a6e6-prod/dist/images/7ae42bac3b34999c0db3.png"
                 alt="Two Sigma"
@@ -463,7 +467,8 @@ export default function Example() {
               data-aos="zoom-in"
               className="relative max-w-2xl mx-auto lg:mx-0"
             >
-              <img
+              <Image
+                layout="fill"
                 className="w-auto h-12"
                 src="https://tailwindui.com/img/logos/workcation-logo-white.svg"
                 alt=""
@@ -714,7 +719,8 @@ export default function Example() {
             Footer
           </h2>
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-            <img
+            <Image
+              layout="fill"
               className="h-7"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Company name"
