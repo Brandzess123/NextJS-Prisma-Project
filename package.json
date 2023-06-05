@@ -43,6 +43,7 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
     "prisma": "^4.15.0"
   }
 }

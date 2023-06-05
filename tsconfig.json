@@ -18,7 +18,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "$/*": ["utils/*"],
-      "db": ["src/pages/lib/prisma"]
+      "db": ["src/lib/prisma"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/api/C", "src/pages/api/auth/[...nextauth].js"],
