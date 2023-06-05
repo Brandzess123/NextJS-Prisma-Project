@@ -4,6 +4,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 import {
   LanguageIcon,
   Bars3Icon,
@@ -145,7 +147,7 @@ export default function Example() {
 
   useEffect(() => {
     AOS.init({
-      duration: 800, // Độ trễ của hiệu ứng (mặc định là 300ms)
+      duration: 1000, // Độ trễ của hiệu ứng (mặc định là 300ms)
       once: false, // Hiệu ứng chỉ chạy một lần (mặc định là false)
       easing: "ease-in-out", // Kiểu chuyển động của hiệu ứng (mặc định là 'ease')
     });
@@ -193,12 +195,12 @@ export default function Example() {
             ))}
           </div>
           <div className="hidden transition-all duration-300 ease-in-out hover:mt-3 lg:flex lg:flex-1 lg:justify-end">
-            <a
-              href="#"
+            <Link
+              href="/login"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </div>
         </nav>
         <Dialog
@@ -242,12 +244,12 @@ export default function Example() {
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
+                  <link
+                    href="/login"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Log in
-                  </a>
+                  </link>
                 </div>
               </div>
             </div>
@@ -468,7 +470,8 @@ export default function Example() {
               className="relative max-w-2xl mx-auto lg:mx-0"
             >
               <Image
-                layout="fill"
+                width={65}
+                height={65}
                 className="w-auto h-12"
                 src="https://tailwindui.com/img/logos/workcation-logo-white.svg"
                 alt=""
