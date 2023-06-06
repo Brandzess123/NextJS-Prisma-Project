@@ -329,7 +329,7 @@ export default function Home() {
         </div>
 
         {/* Logo cloud */}
-        <div className="px-6 mx-auto max-w-7xl lg:mt-[500px] lg:px-8">
+        <div className="px-6 mx-auto max-w-7xl lg:px-8">
           <Marquee direction="right" speed={170} delay={0} autoFill={true}>
             <div className="grid items-center max-w-lg grid-cols-4 mx-auto gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
               <Image
