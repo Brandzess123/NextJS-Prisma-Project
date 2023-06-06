@@ -58,13 +58,13 @@ const tiers = [
     name: "Professional",
     id: "tier-Professional",
     href: "#",
-    priceMonthly: "$",
+    priceMonthly: "$0",
     description:
       "Tailored for both individuals and professionals seeking to leverage the power of video to drive growth and achieve success.",
     features: [
       "2 videos per month",
       "Up to 20 minutes of subtitles",
-      "Basic analytics",
+      "Subtitle translation & export",
       "48-hour support response time",
     ],
     mostPopular: false,
@@ -81,7 +81,7 @@ const tiers = [
       "25 products",
       "Up to 1440 minutes of subtitles",
       "Advanced analytics",
-      "24-hour support response time",
+      "Subtitle translation & export",
       "Marketing automations",
     ],
     mostPopular: true,
@@ -96,7 +96,7 @@ const tiers = [
     features: [
       "Unlimited products",
       "Up to 8000 minutes of subtitles",
-      "Resolutions up to 4K",
+      "Subtitle translation & export",
       "1-hour, dedicated support response time",
       "Marketing automations",
     ],
@@ -329,7 +329,7 @@ export default function Example() {
         </div>
 
         {/* Logo cloud */}
-        <div className="px-6 mx-auto max-w-7xl lg:px-8">
+        <div className="px-6 mx-auto max-w-7xl lg:mt-[500px] lg:px-8">
           <Marquee direction="right" speed={170} delay={0} autoFill={true}>
             <div className="grid items-center max-w-lg grid-cols-4 mx-auto gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
               <Image
@@ -479,6 +479,7 @@ export default function Example() {
               className="relative max-w-2xl mx-auto lg:mx-0"
             >
               <Image
+                data-aos="zoom-in"
                 width={65}
                 height={65}
                 className="w-auto h-12"
@@ -486,7 +487,10 @@ export default function Example() {
                 alt=""
               />
               <figure>
-                <blockquote className="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
+                <blockquote
+                  data-aos="zoom-in"
+                  className="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8"
+                >
                   <p>
                     “In my perspective, business goes beyond the attire of suits
                     or the sole aim of satisfying stockholders. It revolves
@@ -496,8 +500,12 @@ export default function Example() {
                   </p>
                 </blockquote>
                 <figcaption className="mt-6 text-base text-white">
-                  <div className="font-semibold">Elliot Alderson</div>
-                  <div className="mt-1">CEO of Evette Anita</div>
+                  <div data-aos="zoom-in" className="font-semibold">
+                    Elliot Alderson
+                  </div>
+                  <div data-aos="zoom-in" className="mt-1">
+                    CEO of Evette Anita
+                  </div>
                 </figcaption>
               </figure>
             </div>
