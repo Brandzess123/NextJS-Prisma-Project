@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-// import { useSession, getServerSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
+// import { json } from "stream/consumers";
 // import { authOptions } from "src/pages/api/auth/[...nextauth]";
 
 // import { useSession, signIn, signOut } from "next-auth/react";
@@ -44,7 +44,14 @@ import { useSession } from "next-auth/react";
 //   };
 // }
 
-export default function Menu() {
+export const getServerSideProps = async (context) => {
+  const res = await fetch(`http://${context.req.headers.host}/api/getinfo`);
+  const jsonData = await res.json();
+  // setData(jsonData.data1); //set giá trị vào state
+  return { props: { jsonData } };
+};
+
+export default function Menu({ jsonData }) {
   const [data, setData] = useState([]);
 
   const [mail, setEmail] = useState("");
@@ -71,7 +78,8 @@ export default function Menu() {
 
   useEffect(() => {
     // const myComponent = <Protected />;
-    fetchData();
+    setData(jsonData.data1);
+    // console.log(window.location.href.split("/menu")[0] + "/api/getinfo");
   }, []);
 
   const fetchData = async () => {
@@ -148,8 +156,6 @@ export default function Menu() {
                 <th className="border">Email</th>
                 <th className="border">Password</th>
                 <th className="border">Edit</th>
-                {/* <th className="border">update</th>
-                <th className="border">delete</th> */}
               </tr>
             </thead>
             <tbody className="border">
@@ -173,6 +179,7 @@ export default function Menu() {
               ))}
             </tbody>
           </table>
+
           {/* onSubmit={handleSubmit} */}
           <form>
             <input

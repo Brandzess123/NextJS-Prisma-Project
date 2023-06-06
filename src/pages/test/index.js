@@ -55,14 +55,15 @@ const features = [
 const tiers = [
   {
     animation: "fade-right",
-    name: "Freelancer",
-    id: "tier-freelancer",
+    name: "Professional",
+    id: "tier-Professional",
     href: "#",
-    priceMonthly: "$24",
-    description: "The essentials to provide your best work for clients.",
+    priceMonthly: "$",
+    description:
+      "Tailored for both individuals and professionals seeking to leverage the power of video to drive growth and achieve success.",
     features: [
-      "5 products",
-      "Up to 1,000 subscribers",
+      "2 videos per month",
+      "Up to 20 minutes of subtitles",
       "Basic analytics",
       "48-hour support response time",
     ],
@@ -70,14 +71,15 @@ const tiers = [
   },
   {
     animation: "fade-up",
-    name: "Startup",
-    id: "tier-startup",
+    name: "Business",
+    id: "Business",
     href: "#",
-    priceMonthly: "$32",
-    description: "A plan that scales with your rapidly growing business.",
+    priceMonthly: "$6",
+    description:
+      "Perfect for organizations looking to integrate video seamlessly into their growth, communication, and teamwork strategies.",
     features: [
       "25 products",
-      "Up to 10,000 subscribers",
+      "Up to 1440 minutes of subtitles",
       "Advanced analytics",
       "24-hour support response time",
       "Marketing automations",
@@ -89,12 +91,12 @@ const tiers = [
     name: "Enterprise",
     id: "tier-enterprise",
     href: "#",
-    priceMonthly: "$48",
+    priceMonthly: "$8",
     description: "Dedicated support and infrastructure for your company.",
     features: [
       "Unlimited products",
-      "Unlimited subscribers",
-      "Advanced analytics",
+      "Up to 8000 minutes of subtitles",
+      "Resolutions up to 4K",
       "1-hour, dedicated support response time",
       "Marketing automations",
     ],
@@ -302,7 +304,7 @@ export default function Example() {
                   <Image
                     data-aos="zoom-in"
                     data-aos-duration="1200"
-                    src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
+                    src="/main.jpg"
                     alt="App screenshot"
                     width={2432}
                     height={1442}
@@ -413,15 +415,22 @@ export default function Example() {
                   className="relative pl-16"
                 >
                   <dt className="text-base font-semibold leading-7 text-gray-900">
-                    <div className="absolute top-0 left-0 flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-lg">
+                    <div
+                      data-aos={feature.animation}
+                      className="absolute top-0 left-0 flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-lg"
+                    >
                       <feature.icon
+                        data-aos={feature.animation}
                         className="w-6 h-6 text-white"
                         aria-hidden="true"
                       />
                     </div>
                     {feature.name}
                   </dt>
-                  <dd className="mt-2 text-base leading-7 text-gray-600">
+                  <dd
+                    data-aos={feature.animation}
+                    className="mt-2 text-base leading-7 text-gray-600"
+                  >
                     {feature.description}
                   </dd>
                 </div>
