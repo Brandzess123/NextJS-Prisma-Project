@@ -45,13 +45,14 @@ import { useSession } from "next-auth/react";
 // }
 
 export const getServerSideProps = async (context) => {
+  const x = `http://${context.req.headers.host}/api/getinfo`;
   const res = await fetch(`http://${context.req.headers.host}/api/getinfo`);
   const jsonData = await res.json();
   // setData(jsonData.data1); //set giá trị vào state
-  return { props: { jsonData } };
+  return { props: { jsonData, x } };
 };
 
-export default function Menu({ jsonData }) {
+export default function Menu({ jsonData, x }) {
   const [data, setData] = useState([]);
 
   const [mail, setEmail] = useState("");
@@ -79,6 +80,7 @@ export default function Menu({ jsonData }) {
   useEffect(() => {
     // const myComponent = <Protected />;
     setData(jsonData.data1);
+    console.log(x);
     // console.log(window.location.href.split("/menu")[0] + "/api/getinfo");
   }, []);
 
