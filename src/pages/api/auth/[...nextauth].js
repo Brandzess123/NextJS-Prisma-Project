@@ -12,6 +12,7 @@ const prisma = new PrismaClient({
 });
 
 const authOptions = {
+  secret: process.env.SECRET,
   session: {
     strategy: "jwt",
   },
