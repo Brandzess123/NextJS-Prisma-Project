@@ -80,7 +80,7 @@ export default function Menu({ jsonData, x }) {
   useEffect(() => {
     // const myComponent = <Protected />;
     setData(jsonData.data1);
-    console.log(x);
+    // console.log(x);
     // console.log(window.location.href.split("/menu")[0] + "/api/getinfo");
   }, []);
 
@@ -144,6 +144,7 @@ export default function Menu({ jsonData, x }) {
 
   return (
     <>
+      <h1>{x}</h1>
       <h1 className="mt-5 text-lg font-bold text-center">
         This is a menu page
       </h1>
