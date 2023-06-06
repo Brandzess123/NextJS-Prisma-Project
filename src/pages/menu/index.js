@@ -46,9 +46,7 @@ import { useSession } from "next-auth/react";
 
 export const getServerSideProps = async (context) => {
   const x = `http://${context.req.headers.host}/api/getinfo`;
-  const res = await fetch(
-    "https://next-js-prisma-project.vercel.app/api/getinfo"
-  );
+  const res = await fetch(`http://${context.req.headers.host}/api/getinfo`);
   const jsonData = await res.json();
   // setData(jsonData.data1); //set giá trị vào state
   return { props: { jsonData, x } };
