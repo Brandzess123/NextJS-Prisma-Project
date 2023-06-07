@@ -21,6 +21,6 @@
       "db": ["src/lib/prisma"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/api/C", "src/pages/api/auth/[...nextauth].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/api/C", "src/pages/api/auth/[...nextauth].js", "src/pages/_document.js"],
   "exclude": ["node_modules"]
 }
