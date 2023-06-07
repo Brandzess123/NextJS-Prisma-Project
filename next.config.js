@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["tailwindui.com", "assets.algoexpert.io"],
+    domains: ["tailwindui.com", "assets.algoexpert.io", "google.com"],
+  },
+  experimental: {
+    appDir: true,
   },
 };
 

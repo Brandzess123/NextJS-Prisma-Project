@@ -21,9 +21,8 @@ const authOptions = {
   providers: [
     GoogleProvider({
       clientId:
-        "87060862126-s599schmj7uiqv7lp6bvqfct1moh3926.apps.googleusercontent.com",
-      clientSecret: "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",
-      //process.env.GOOGLE_CLIENT_ID process.env.GOOGLE_CLIENT_SECRET
+        "87060862126-s59n9e8g4p4f9stm2rr1m6lr9sfm1pe0.apps.googleusercontent.com",
+      clientSecret: "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",
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -58,20 +57,18 @@ const authOptions = {
   ],
   pages: {
     signIn: "/login",
-    // error: '/auth/error',
-    // signOut: '/auth/signout'
   },
-  callbacks: {
-    //hàm này để chuyển hướng sau khi người dùng
-    jwt(params) {
-      // update token
-      if (params.user?.role) {
-        params.token.role = params.user.role;
-      }
-      // return final_token
-      return params.token;
-    },
-  },
+  // callbacks: {
+  //   //hàm này để chuyển hướng sau khi người dùng
+  //   jwt(params) {
+  //     // update token
+  //     if (params.user?.role) {
+  //       params.token.role = params.user.role;
+  //     }
+  //     // return final_token
+  //     return params.token;
+  //   },
+  // },
 };
 
 export default NextAuth(authOptions);

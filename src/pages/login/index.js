@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import { sign } from "crypto";
+
 import Image from "next/image";
 
 export default function LoginSite() {
@@ -14,16 +15,18 @@ export default function LoginSite() {
   // const [session, loading] = useSession();
   // const { data: session, loading } = useSession();
 
-  const handleGoogle = () => {
-    const result = signIn("google", { callbackUrl: "http://localhost:3000" });
-    if (result.error) {
-      // Xử lý lỗi nếu có
-      console.log(result.error);
-    } else {
-      // Đăng nhập thành công, điều hướng đến trang mong muốn
-      router.push("/menu"); // Thay đổi '/dashboard' thành đường dẫn trang mong muốn
-    }
-  };
+  // const handleGoogle = () => {
+  //   // const result = signIn("google", { callbackUrl: "http://localhost:3000" });
+  //   // if (result.error) {
+  //   //   // Xử lý lỗi nếu có
+  //   //   console.log(result.error);
+  //   // } else {
+  //   //   // Đăng nhập thành công, điều hướng đến trang mong muốn
+  //   //   router.push("/menu"); // Thay đổi '/dashboard' thành đường dẫn trang mong muốn
+  //   // }
+
+  //   signIn("google");
+  // };
 
   const handleGithub = async () => {
     const result = await signIn("github");
@@ -205,8 +208,9 @@ export default function LoginSite() {
               </button>
 
               <button
-                type="submit"
-                onClick={handleGoogle}
+                // type="submit"
+                // onClick={handleGoogle}
+                onClick={() => signIn("google")}
                 className="mb-5 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 // onClick={}
               >
